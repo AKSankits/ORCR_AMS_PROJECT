@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="PolicyDekho Test Suite" verbose="1">
+
+    <listeners>
+        <listener class-name="listeners.TestListener"/>
+    </listeners>
+
+    <!--
+        Report 1 — TestNG + Extent Report (without Cucumber)
+        Listener: listeners.TestListener
+        Output:   test-output/report.html
+        Runs:     PolicyTest (UI) + ApiTest (REST Assured)
+    -->
+    <test name="PolicyDekho Tests">
+        <classes>
+            <class name="PolicyTest"/>
+        </classes>
+    </test>
+
+    <test name="API Tests">
+        <classes>
+            <class name="api.ApiTest"/>
+        </classes>
+    </test>
+
+    <!--
+        Report 2 — Cucumber Report (via TestRunner @CucumberOptions plugin)
+        Output:   test-output/cucumber-report.html
+        Runs:     All feature file scenarios via TestRunner
+    -->
+    <test name="Cucumber BDD Tests">
+        <classes>
+            <class name="TestRunner"/>
+        </classes>
+    </test>
+
+</suite>

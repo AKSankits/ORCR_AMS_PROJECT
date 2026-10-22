@@ -5,11 +5,15 @@ import io.cucumber.java.en.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import pages.*;
+import pages.todaysUpdate.AddNomineePage;
+import pages.todaysUpdate.NomineesPage;
 
 public class StepDefinitions {
 
     private ChromeDriver d;
     private HomePage homePage;
+    private int initialNomineeCount;
+    private String addedNomineeName;
 
     static final String EMAIL    = "rajesh@insurance.com";
     static final String PASSWORD = "Insure@123";
@@ -91,6 +95,80 @@ public class StepDefinitions {
     public void verifyDashboardRedirect() {
         Assert.assertTrue(new BuyPolicyPage(d).isDashboardReached(), "Dashboard redirect failed");
     }
+
+    @When("the user clicks on Nominees")
+    public void clickNominees() {
+        homePage.clickNominees();
+
+        NomineesPage nomineesPage = new NomineesPage(d);
+        initialNomineeCount = nomineesPage.getNomineeCount();
+    }
+
+    @When("the user deletes the first nominee")
+    public void deleteFirstNominee() {
+        new NomineesPage(d).deleteFirstNominee();
+    }
+
+    @When("the user makes room for a nominee")
+    public void makeRoomForNominee() {
+        if (initialNomineeCount >= 2) {
+            int expectedCount = initialNomineeCount - 1;
+            NomineesPage nomineesPage = new NomineesPage(d);
+            nomineesPage.deleteFirstNominee();
+
+            Assert.assertTrue(
+                    nomineesPage.waitForNomineeCount(expectedCount),
+                    "Expected nominee count to decrease from "
+                            + initialNomineeCount + " to " + expectedCount
+            );
+            initialNomineeCount = expectedCount;
+        }
+    }
+
+    @Then("the nominee count should decrease by one")
+    public void verifyNomineeDeleted() {
+        int expectedCount = initialNomineeCount - 1;
+
+        boolean countUpdated = new NomineesPage(d)
+                .waitForNomineeCount(expectedCount);
+
+        Assert.assertTrue(
+                countUpdated,
+                "Expected nominee count to decrease from "
+                        + initialNomineeCount + " to " + expectedCount
+        );
+    }
+
+    @When("the user adds a nominee with random details")
+    public void addRandomNominee() {
+        addedNomineeName = new AddNomineePage(d).addRandomNominee();
+    }
+
+    @Then("the nominee count should increase by one")
+    public void verifyNomineeAdded() {
+        NomineesPage nomineesPage = new NomineesPage(d);
+        int expectedCount = initialNomineeCount + 1;
+        boolean countUpdated = nomineesPage.waitForNomineeCount(expectedCount);
+        boolean nomineeVisible = new AddNomineePage(d).waitForNominee(addedNomineeName);
+
+        Assert.assertTrue(countUpdated, "Expected nominee count to increase from "
+                + initialNomineeCount + " to " + expectedCount);
+        Assert.assertTrue(nomineeVisible, "New nominee was not saved: "
+                + addedNomineeName);
+    }
+
+    @Then("the nominee count should return to its original value")
+    public void verifyNomineeCountRestored() {
+        NomineesPage nomineesPage = new NomineesPage(d);
+        boolean countUpdated = nomineesPage.waitForNomineeCount(initialNomineeCount);
+        boolean nomineeVisible = new AddNomineePage(d).waitForNominee(addedNomineeName);
+
+        Assert.assertTrue(countUpdated, "Nominee count did not return to "
+                + initialNomineeCount);
+        Assert.assertTrue(nomineeVisible, "Replacement nominee was not saved: "
+                + addedNomineeName);
+    }
+
 
     @After
     public void tearDown() {

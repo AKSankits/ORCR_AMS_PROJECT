@@ -277,7 +277,7 @@ public class ApiTest extends BaseTest {
     }
 
     // ─────────────────────────────────────────────
-    // PUT TESTS — Full update of existing quote
+    // PUT TESTS —
     // ─────────────────────────────────────────────
 
     @Test(priority = 13, description = "PUT update quote — status 200, response reflects updated fields")
@@ -318,7 +318,7 @@ public class ApiTest extends BaseTest {
     }
 
     // ─────────────────────────────────────────────
-    // PATCH TESTS — Partial update of existing quote
+    // PATCH TESTS —
     // ─────────────────────────────────────────────
 
     @Test(priority = 15, description = "PATCH partial update quote — status 200, only patched field changes")
@@ -353,7 +353,7 @@ public class ApiTest extends BaseTest {
     }
 
     // ─────────────────────────────────────────────
-    // DELETE TESTS — Remove existing quote
+    // DELETE TESTS —
     // ─────────────────────────────────────────────
 
     @Test(priority = 17, description = "DELETE quote — status 200 and response body is empty object")
@@ -523,5 +523,13 @@ public class ApiTest extends BaseTest {
             logFail("/posts", "POST + Auth Header", res.statusCode(), res.asPrettyString(), e);
             throw e;
         }
+    }
+    @Test(priority = 25, description = "GET post - verify status and ID")
+    public void verifyPostStatusAndId() {
+        req().when()
+                .get("/posts/1")
+                .then()
+                .statusCode(200)
+                .body("id", equalTo(1));
     }
 }

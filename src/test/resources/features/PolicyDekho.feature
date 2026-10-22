@@ -39,3 +39,16 @@ Feature: PolicyDekho Insurance Portal
     And the user fills nominee details
     And the user pays and submits
     Then the user should be redirected to the dashboard
+
+  Scenario: Delete the first nominee
+    When the user clicks on Nominees
+    And the user deletes the first nominee
+    Then the nominee count should decrease by one
+    When the user adds a nominee with random details
+    Then the nominee count should return to its original value
+
+  Scenario: Add a nominee with random details
+    When the user clicks on Nominees
+    And the user makes room for a nominee
+    And the user adds a nominee with random details
+    Then the nominee count should increase by one

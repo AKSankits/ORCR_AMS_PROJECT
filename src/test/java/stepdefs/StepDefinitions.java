@@ -1,12 +1,14 @@
 package stepdefs;
 
-import io.cucumber.java.After;
+import base.BaseTest;
 import io.cucumber.java.en.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import pages.*;
 import pages.todaysUpdate.AddNomineePage;
 import pages.todaysUpdate.NomineesPage;
+import pages.todaysUpdate.PremiumCalculatorPage;
+import pages.todaysUpdate.RenewPolicyPage;
 
 public class StepDefinitions {
 
@@ -21,6 +23,7 @@ public class StepDefinitions {
     @Given("the user is on the PolicyDekho home page")
     public void openHomePage() {
         d = new ChromeDriver();
+        BaseTest.setCurrentDriver(d);
         d.manage().window().maximize();
         homePage = new HomePage(d);
         homePage.open();
@@ -49,6 +52,64 @@ public class StepDefinitions {
 
     @When("the user clicks on Renew again")
     public void clickRenewAgain() { homePage.clickRenew(); }
+
+    @When("the user clicks on the Renew Policy link")
+    public void clickRenewPolicyLink() {
+        new RenewPolicyPage(d).clickRenewPolicyLink();
+    }
+
+    @When("the user renews the first available policy")
+    public void renewFirstAvailablePolicy() {
+        new RenewPolicyPage(d).renewFirstPolicy();
+    }
+
+    @When("the user confirms the renewal")
+    public void confirmPolicyRenewal() {
+        new RenewPolicyPage(d).confirmRenewal();
+    }
+
+    @Then("the renewal confirmation should be displayed")
+    public void verifyRenewalConfirmation() {
+        Assert.assertTrue(new RenewPolicyPage(d).isRenewalSuccessful(),
+                "Policy renewal confirmation was not displayed");
+    }
+
+    @When("the user opens the premium calculator")
+    public void openPremiumCalculator() {
+        new PremiumCalculatorPage(d).openCalculator();
+    }
+
+    @When("the user submits the calculator without entering details")
+    public void submitCalculatorWithoutDetails() {
+        new PremiumCalculatorPage(d).submitCalculator();
+    }
+
+    @When("the user enters random calculator details with an underage date of birth")
+    public void enterCalculatorDetailsWithUnderageDob() {
+        new PremiumCalculatorPage(d).fillRandomDetailsWithUnderageDateOfBirth();
+    }
+
+    @When("the user enters random valid calculator details")
+    public void enterRandomValidCalculatorDetails() {
+        new PremiumCalculatorPage(d).fillRandomValidDetails();
+    }
+
+    @When("the user calculates the premium")
+    public void calculatePremium() {
+        new PremiumCalculatorPage(d).submitCalculator();
+    }
+
+    @Then("the calculator should show the validation message {string}")
+    public void verifyCalculatorValidationMessage(String expectedMessage) {
+        Assert.assertTrue(new PremiumCalculatorPage(d).hasValidationMessage(expectedMessage),
+                "Expected calculator validation message: " + expectedMessage);
+    }
+
+    @Then("the premium calculation result should be displayed")
+    public void verifyPremiumCalculationResult() {
+        Assert.assertTrue(new PremiumCalculatorPage(d).isCalculationDisplayed(),
+                "Premium calculation result was not displayed");
+    }
 
     @When("the user selects the first plan and confirms renewal")
     public void selectPlanAndConfirm() { new RenewPage(d).selectFirstPlanAndConfirm(); }
@@ -167,11 +228,5 @@ public class StepDefinitions {
                 + initialNomineeCount);
         Assert.assertTrue(nomineeVisible, "Replacement nominee was not saved: "
                 + addedNomineeName);
-    }
-
-
-    @After
-    public void tearDown() {
-        if (d != null) d.quit();
     }
 }

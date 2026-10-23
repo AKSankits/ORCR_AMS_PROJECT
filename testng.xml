@@ -7,17 +7,11 @@
     </listeners>
 
     <!--
-        Report 1 — TestNG + Extent Report (without Cucumber)
+        Report 1 — TestNG + Extent Report (API)
         Listener: listeners.TestListener
         Output:   test-output/report.html
-        Runs:     PolicyTest (UI) + ApiTest (REST Assured)
+        Runs:     ApiTest (REST Assured)
     -->
-    <test name="PolicyDekho Tests">
-        <classes>
-            <class name="PolicyTest"/>
-        </classes>
-    </test>
-
     <test name="API Tests">
         <classes>
             <class name="api.ApiTest"/>

@@ -45,6 +45,11 @@ public class BaseTest {
     public void startRecording(Method method) throws Exception {
         testName = method.getName();
         currentDriver = d;
+        startRecording(testName);
+    }
+
+    protected void startRecording(String recordingName) throws Exception {
+        testName = recordingName.replaceAll("[^A-Za-z0-9_-]", "_");
         Files.createDirectories(Path.of(VIDEO_DIR));
 
         GraphicsConfiguration gc = GraphicsEnvironment
@@ -73,4 +78,5 @@ public class BaseTest {
     public static ExtentTest getCurrentTest()          { return currentTest; }
     public static void setCurrentTest(ExtentTest test) { currentTest = test; }
     public static ChromeDriver getCurrentDriver()      { return currentDriver; }
+    public static void setCurrentDriver(ChromeDriver driver) { currentDriver = driver; }
 }

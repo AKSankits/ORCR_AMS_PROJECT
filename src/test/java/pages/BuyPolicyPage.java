@@ -10,7 +10,7 @@ public class BuyPolicyPage extends BasePage {
 
     // Locator constants
     private static final By VEHICLE_INSURANCE_LABEL = By.xpath("//label[normalize-space()='Vehicle Insurance']");
-    private static final By PLAN_ROW                = By.xpath("//tr[@id='planRow0']//td[@class='px-4 py-3']");
+    private static final By PLAN_ROW                = By.cssSelector("#planRow0 input[name='selectedPlan']");
     private static final By CONTINUE_BTN_1          = By.id("continueBtn1");
     private static final By APPLICANT_NAME          = By.id("applicantName");
     private static final By APPLICANT_DOB           = By.id("applicantDob");

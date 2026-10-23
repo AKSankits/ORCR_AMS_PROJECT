@@ -25,6 +25,12 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
+        if (isCucumberScenario(result)) return;
+        if (isApiTest(result)) {
+            System.out.println("[API] STARTED: " + getTestLabel(result));
+            return;
+        }
+
         // Create a fresh ExtentTest node for every test when it starts
         if (extent != null) {
             ExtentTest test = extent.createTest(result.getMethod().getMethodName());
@@ -34,6 +40,12 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestSuccess(ITestResult result) {
+        if (isCucumberScenario(result)) return;
+        if (isApiTest(result)) {
+            System.out.println("[API] PASSED:  " + getTestLabel(result));
+            return;
+        }
+
         ExtentTest test = BaseTest.getCurrentTest();
         if (test == null) return;
         try {
@@ -52,6 +64,17 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
+        if (isCucumberScenario(result)) {
+            ExtentTest test = BaseTest.getCurrentTest();
+            if (test != null) test.fail(result.getThrowable());
+            return;
+        }
+        if (isApiTest(result)) {
+            System.out.println("[API] FAILED:  " + getTestLabel(result)
+                    + " — " + result.getThrowable());
+            return;
+        }
+
         ExtentTest test = BaseTest.getCurrentTest();
         if (test == null) return;
         try {
@@ -73,6 +96,18 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestSkipped(ITestResult result) {
+        if (isCucumberScenario(result)) {
+            ExtentTest test = BaseTest.getCurrentTest();
+            if (test != null && result.getThrowable() != null) {
+                test.skip(result.getThrowable());
+            }
+            return;
+        }
+        if (isApiTest(result)) {
+            System.out.println("[API] SKIPPED: " + getTestLabel(result));
+            return;
+        }
+
         ExtentTest test = BaseTest.getCurrentTest();
         if (test == null && extent != null)
             test = extent.createTest(result.getMethod().getMethodName());
@@ -99,4 +134,19 @@ public class TestListener implements ITestListener {
     }
 
     @Override public void onTestFailedButWithinSuccessPercentage(ITestResult result) {}
+
+    private boolean isCucumberScenario(ITestResult result) {
+        return "runScenario".equals(result.getMethod().getMethodName());
+    }
+
+    private boolean isApiTest(ITestResult result) {
+        return "api.ApiTest".equals(result.getTestClass().getName());
+    }
+
+    private String getTestLabel(ITestResult result) {
+        String description = result.getMethod().getDescription();
+        return description == null || description.isBlank()
+                ? result.getMethod().getMethodName()
+                : result.getMethod().getMethodName() + " — " + description;
+    }
 }

@@ -9,8 +9,41 @@ Feature: PolicyDekho Insurance Portal
   Scenario: Verify page URL
     Then the page URL should contain "testerrank.com/insurance"
 
-  @ignore
+  @renewal
   Scenario: Verify policy renewal
+    When the user clicks on the Renew Policy link
+    And the user logs in with valid credentials
+    And the user clicks on the Renew Policy link
+    And the user renews the first available policy
+    And the user confirms the renewal
+    Then the renewal confirmation should be displayed
+
+  @calculator
+  Scenario: Premium calculator validates required fields
+    When the user opens the premium calculator
+    And the user submits the calculator without entering details
+    Then the calculator should show the validation message "Select a policy type"
+    And the calculator should show the validation message "Select a plan"
+    And the calculator should show the validation message "Enter date of birth"
+    And the calculator should show the validation message "Select sum insured"
+    And the calculator should show the validation message "Select coverage term"
+
+  @calculator
+  Scenario: Premium calculator rejects an underage applicant
+    When the user opens the premium calculator
+    And the user enters random calculator details with an underage date of birth
+    And the user calculates the premium
+    Then the calculator should show the validation message "Age must be between 18 and 75"
+
+  @calculator
+  Scenario: Premium calculator calculates a random valid quote
+    When the user opens the premium calculator
+    And the user enters random valid calculator details
+    And the user calculates the premium
+    Then the premium calculation result should be displayed
+
+  @ignore
+  Scenario: Verify legacy policy renewal
     When the user clicks on Renew
     And the user logs in with valid credentials
     And the user clicks on Renew again
@@ -32,7 +65,6 @@ Feature: PolicyDekho Insurance Portal
     When the user clicks on Buy Policy
     And the user selects Vehicle Insurance
     And the user selects a plan
-    And the user logs in with valid credentials
     And the user continues from plan selection
     And the user fills applicant details
     And the user fills vehicle details

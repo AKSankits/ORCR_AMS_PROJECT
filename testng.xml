@@ -12,7 +12,7 @@
         Output:   test-output/report.html
         Runs:     ApiTest (REST Assured)
     -->
-    <test name="API Tests">
+    <test name="API Tests" parallel="methods" thread-count="5">
         <classes>
             <class name="api.ApiTest"/>
         </classes>

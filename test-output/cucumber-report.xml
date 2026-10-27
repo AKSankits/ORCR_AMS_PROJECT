@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Cucumber" time="69.861" tests="11" skipped="0" failures="1" errors="0">
-<testcase classname="PolicyDekho Insurance Portal" name="Verify page title" time="5.767">
+<testsuite name="Cucumber" time="186.5" tests="11" skipped="0" failures="1" errors="0">
+<testcase classname="PolicyDekho Insurance Portal" name="Verify page title" time="24.164">
 <system-out><![CDATA[
 Given the user is on the PolicyDekho home page..............................passed
 Then the page title should be "PolicyDekho | TesterRank"....................passed
 ]]></system-out>
 </testcase>
-<testcase classname="PolicyDekho Insurance Portal" name="Verify page URL" time="3.701">
+<testcase classname="PolicyDekho Insurance Portal" name="Verify page URL" time="11.272">
 <system-out><![CDATA[
 Given the user is on the PolicyDekho home page..............................passed
 Then the page URL should contain "testerrank.com/insurance".................passed
 ]]></system-out>
 </testcase>
-<testcase classname="PolicyDekho Insurance Portal" name="Verify policy renewal" time="8.927">
+<testcase classname="PolicyDekho Insurance Portal" name="Verify policy renewal" time="14.119">
 <system-out><![CDATA[
 Given the user is on the PolicyDekho home page..............................passed
 When the user clicks on the Renew Policy link...............................passed
@@ -23,7 +23,7 @@ And the user confirms the renewal...........................................pass
 Then the renewal confirmation should be displayed...........................passed
 ]]></system-out>
 </testcase>
-<testcase classname="PolicyDekho Insurance Portal" name="Premium calculator validates required fields" time="5.955">
+<testcase classname="PolicyDekho Insurance Portal" name="Premium calculator validates required fields" time="13.437">
 <system-out><![CDATA[
 Given the user is on the PolicyDekho home page..............................passed
 When the user opens the premium calculator..................................passed
@@ -35,7 +35,7 @@ And the calculator should show the validation message "Select sum insured"..pass
 And the calculator should show the validation message "Select coverage term".passed
 ]]></system-out>
 </testcase>
-<testcase classname="PolicyDekho Insurance Portal" name="Premium calculator rejects an underage applicant" time="5.637">
+<testcase classname="PolicyDekho Insurance Portal" name="Premium calculator rejects an underage applicant" time="30.105">
 <system-out><![CDATA[
 Given the user is on the PolicyDekho home page..............................passed
 When the user opens the premium calculator..................................passed
@@ -44,7 +44,7 @@ And the user calculates the premium.........................................pass
 Then the calculator should show the validation message "Age must be between 18 and 75".passed
 ]]></system-out>
 </testcase>
-<testcase classname="PolicyDekho Insurance Portal" name="Premium calculator calculates a random valid quote" time="6.953">
+<testcase classname="PolicyDekho Insurance Portal" name="Premium calculator calculates a random valid quote" time="22.485">
 <system-out><![CDATA[
 Given the user is on the PolicyDekho home page..............................passed
 When the user opens the premium calculator..................................passed
@@ -53,14 +53,14 @@ And the user calculates the premium.........................................pass
 Then the premium calculation result should be displayed.....................passed
 ]]></system-out>
 </testcase>
-<testcase classname="PolicyDekho Insurance Portal" name="Verify logout" time="6.32">
+<testcase classname="PolicyDekho Insurance Portal" name="Verify logout" time="9.1">
 <system-out><![CDATA[
 Given the user is on the PolicyDekho home page..............................passed
 When the user clicks on Logout..............................................passed
 Then the page URL should contain "insurance"................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="PolicyDekho Insurance Portal" name="Verify raise support ticket" time="6.312">
+<testcase classname="PolicyDekho Insurance Portal" name="Verify raise support ticket" time="12.546">
 <system-out><![CDATA[
 Given the user is on the PolicyDekho home page..............................passed
 When the user clicks on Support.............................................passed
@@ -70,37 +70,27 @@ And the user raises a ticket with subject "Policy Renewal Assistance" and descri
 Then the page URL should contain "insurance"................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="PolicyDekho Insurance Portal" name="Verify buy new policy" time="8.732">
-<failure type="org.openqa.selenium.ElementClickInterceptedException" message="element click intercepted: Element is not clickable at point (1114, 770)
-  (Session info: chrome=155.0.8059.82)
+<testcase classname="PolicyDekho Insurance Portal" name="Verify buy new policy" time="28.753">
+<failure type="org.openqa.selenium.TimeoutException" message="Expected condition failed: waiting for visibility of element found by By.id: upiId, but... org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;css selector&quot;,&quot;selector&quot;:&quot;#upiId&quot;}.
+(tried for 10 seconds with 500 milliseconds interval)
 Build info: version: '4.50.0', revision: 'be845fb be845fb44341cd7a6e7b27ba02dc1bdcf69dc51c'
 System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.9'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [e50049910f0c8e016ccf14b7d6bbd680, clickElement {id=f.1A5FEFCDA289BE09F2E1A03985866A0B.d.1613BA7ADD1712D147163B2485373878.e.457}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 155.0.8059.82, chrome: {chromedriverVersion: 155.0.8059.84 (5869fe313571..., userDataDir: C:\Users\DELL\AppData\Local...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:50811}, goog:processID: 13448, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:50811/devtoo..., se:cdpVersion: 155.0.8059.82, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Element: [[ChromeDriver: chrome on windows (e50049910f0c8e016ccf14b7d6bbd680)] -&gt; id: continueBtn2]
-Session ID: e50049910f0c8e016ccf14b7d6bbd680">
-<![CDATA[org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element is not clickable at point (1114, 770)
-  (Session info: chrome=155.0.8059.82)
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 155.0.8059.85, chrome: {chromedriverVersion: 155.0.8059.84 (5869fe313571..., userDataDir: C:\Users\DELL\AppData\Local...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:64323}, goog:processID: 12940, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:64323/devtoo..., se:cdpVersion: 155.0.8059.85, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 334b0011ce45d2b86e35fb620bcf4e5f">
+<![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element found by By.id: upiId, but... org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"css selector","selector":"#upiId"}.
+(tried for 10 seconds with 500 milliseconds interval)
 Build info: version: '4.50.0', revision: 'be845fb be845fb44341cd7a6e7b27ba02dc1bdcf69dc51c'
 System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.9'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [e50049910f0c8e016ccf14b7d6bbd680, clickElement {id=f.1A5FEFCDA289BE09F2E1A03985866A0B.d.1613BA7ADD1712D147163B2485373878.e.457}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 155.0.8059.82, chrome: {chromedriverVersion: 155.0.8059.84 (5869fe313571..., userDataDir: C:\Users\DELL\AppData\Local...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:50811}, goog:processID: 13448, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:50811/devtoo..., se:cdpVersion: 155.0.8059.82, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Element: [[ChromeDriver: chrome on windows (e50049910f0c8e016ccf14b7d6bbd680)] -> id: continueBtn2]
-Session ID: e50049910f0c8e016ccf14b7d6bbd680
-	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:169)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:143)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:252)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:217)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:175)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:667)
-	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
-	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:79)
-	at pages.BuyPolicyPage.fillApplicantDetails(BuyPolicyPage.java:59)
-	at stepdefs.StepDefinitions.fillApplicant(StepDefinitions.java:144)
-	at ✽.the user fills applicant details(file:///C:/Users/DELL/IdeaProjects/ORCR_AMS_PROJECT/src/test/resources/features/PolicyDekho.feature:69)
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 155.0.8059.85, chrome: {chromedriverVersion: 155.0.8059.84 (5869fe313571..., userDataDir: C:\Users\DELL\AppData\Local...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:64323}, goog:processID: 12940, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:64323/devtoo..., se:cdpVersion: 155.0.8059.85, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 334b0011ce45d2b86e35fb620bcf4e5f
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:85)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at base.BasePage.find(BasePage.java:29)
+	at pages.BuyPolicyPage.payAndSubmit(BuyPolicyPage.java:80)
+	at stepdefs.StepDefinitions.payAndSubmit(StepDefinitions.java:153)
+	at ✽.the user pays and submits(file:///C:/Users/DELL/IdeaProjects/ORCR_AMS_PROJECT/src/test/resources/features/PolicyDekho.feature:72)
 ]]>
 </failure>
 <system-out><![CDATA[
@@ -109,14 +99,14 @@ When the user clicks on Buy Policy..........................................pass
 And the user selects Vehicle Insurance......................................passed
 And the user selects a plan.................................................passed
 And the user continues from plan selection..................................passed
-And the user fills applicant details........................................failed
-And the user fills vehicle details..........................................skipped
-And the user fills nominee details..........................................skipped
-And the user pays and submits...............................................skipped
+And the user fills applicant details........................................passed
+And the user fills vehicle details..........................................passed
+And the user fills nominee details..........................................passed
+And the user pays and submits...............................................failed
 Then the user should be redirected to the dashboard.........................skipped
 ]]></system-out>
 </testcase>
-<testcase classname="PolicyDekho Insurance Portal" name="Delete the first nominee" time="5.515">
+<testcase classname="PolicyDekho Insurance Portal" name="Delete the first nominee" time="10.863">
 <system-out><![CDATA[
 Given the user is on the PolicyDekho home page..............................passed
 When the user clicks on Nominees............................................passed
@@ -126,7 +116,7 @@ When the user adds a nominee with random details............................pass
 Then the nominee count should return to its original value..................passed
 ]]></system-out>
 </testcase>
-<testcase classname="PolicyDekho Insurance Portal" name="Add a nominee with random details" time="5.82">
+<testcase classname="PolicyDekho Insurance Portal" name="Add a nominee with random details" time="9.363">
 <system-out><![CDATA[
 Given the user is on the PolicyDekho home page..............................passed
 When the user clicks on Nominees............................................passed

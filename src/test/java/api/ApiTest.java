@@ -10,6 +10,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -24,6 +25,7 @@ import static org.hamcrest.Matchers.*;
 public class ApiTest extends BaseTest {
 
     private static final String BASE_URI = "https://jsonplaceholder.typicode.com";
+    private final ThreadLocal<ExtentTest> currentApiTest = new ThreadLocal<>();
 
     @BeforeClass
     public void setup() {
@@ -38,7 +40,12 @@ public class ApiTest extends BaseTest {
                 : method.getName();
         ExtentTest node = getExtent().createTest("<b>[API]</b> " + method.getName()
                 + " <i style='color:#555;font-size:12px;'> — " + desc + "</i>");
-        setCurrentTest(node);
+        currentApiTest.set(node);
+    }
+
+    @AfterMethod
+    public void clearReportNode() {
+        currentApiTest.remove();
     }
 
     // helper — captures request+response as string and logs to report
@@ -47,7 +54,7 @@ public class ApiTest extends BaseTest {
     }
 
     private void logPass(String endpoint, String method, int status, String responseBody) {
-        ExtentTest t = getCurrentTest();
+        ExtentTest t = currentApiTest.get();
         if (t == null) return;
         t.log(Status.INFO,
                 "<b>Request:</b> " + method + " " + BASE_URI + endpoint);
@@ -59,7 +66,7 @@ public class ApiTest extends BaseTest {
     }
 
     private void logFail(String endpoint, String method, int status, String responseBody, Throwable e) {
-        ExtentTest t = getCurrentTest();
+        ExtentTest t = currentApiTest.get();
         if (t == null) return;
         t.log(Status.INFO,
                 "<b>Request:</b> " + method + " " + BASE_URI + endpoint);
@@ -388,7 +395,7 @@ public class ApiTest extends BaseTest {
     }
 
     // ─────────────────────────────────────────────
-    // ID CHAINING — POST then PUT then DELETE
+    // ID CHAINING — POST PUT then DELETE
     // ─────────────────────────────────────────────
 
     @Test(priority = 19, description = "ID chaining — POST to create, extract id, PUT to update a known existing id")
